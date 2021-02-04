@@ -8,7 +8,11 @@ import './Blog.css';
 
 class Blog extends Component {
     state = {
-        posts: []
+        posts: [],
+        fullPost: {
+            title: null,
+            body: null
+        }
     }
 
     componentDidMount() {
@@ -26,9 +30,20 @@ class Blog extends Component {
             });
     }
 
+    showFullPostHander = (clickedPost) => {
+        this.setState({ fullPost: clickedPost });
+    }
+
     render() {
         const posts = this.state.posts.map(post => {
-            return <Post key={post.id} title={post.title} author={post.author} />
+            return (
+                <Post
+                    key={post.id}
+                    title={post.title}
+                    author={post.author}
+                    clicked={() => this.showFullPostHander(post)}
+                />
+            )
         });
         return (
             <div>
@@ -36,7 +51,7 @@ class Blog extends Component {
                     {posts}
                 </section>
                 <section>
-                    <FullPost />
+                    <FullPost title={this.state.fullPost.title} content={this.state.fullPost.body} />
                 </section>
                 <section>
                     <NewPost />
