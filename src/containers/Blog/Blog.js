@@ -9,10 +9,7 @@ import './Blog.css';
 class Blog extends Component {
     state = {
         posts: [],
-        fullPost: {
-            title: null,
-            body: null
-        }
+        selectedPostId: null
     }
 
     componentDidMount() {
@@ -30,8 +27,8 @@ class Blog extends Component {
             });
     }
 
-    showFullPostHander = (clickedPost) => {
-        this.setState({ fullPost: clickedPost });
+    postSelectedHandler = (id) => {
+        this.setState({ selectedPostId: id });
     }
 
     render() {
@@ -41,7 +38,7 @@ class Blog extends Component {
                     key={post.id}
                     title={post.title}
                     author={post.author}
-                    clicked={() => this.showFullPostHander(post)}
+                    clicked={() => this.postSelectedHandler(post.id)}
                 />
             )
         });
@@ -51,7 +48,7 @@ class Blog extends Component {
                     {posts}
                 </section>
                 <section>
-                    <FullPost title={this.state.fullPost.title} content={this.state.fullPost.body} />
+                    <FullPost id={this.state.selectedPostId} />
                 </section>
                 <section>
                     <NewPost />
