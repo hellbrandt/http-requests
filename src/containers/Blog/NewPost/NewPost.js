@@ -12,12 +12,6 @@ class NewPost extends Component {
         submitted: false
     }
 
-    componentDidMount() {
-        if (!this.props.isAuth) {
-            this.props.history.replace('/posts');
-        }
-    }
-
     componentDidUpdate() {
         console.log(this.props);
     }
